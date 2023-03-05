@@ -1,7 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string } from 'yup';
-
+import { ContactsList } from './ContactsList';
+import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
 let schema = object({
   name: string().required(),
@@ -12,6 +13,7 @@ export class App extends React.Component {
     contacts: [],
     name: '',
     number: '',
+    filter: '',
   };
 
   handleSubmit = (values, { resetForm }) => {
@@ -25,6 +27,10 @@ export class App extends React.Component {
     }));
     resetForm();
     console.log(this.state);
+  };
+
+  searchContact = evt => {
+    this.setState({ filter: evt.target.value.toLowerCase() });
   };
 
   render() {
@@ -56,17 +62,8 @@ export class App extends React.Component {
             <button type="submit">Add contact</button>
           </Form>
         </Formik>
-        <ul>
-          {this.state.contacts.map(element => {
-            return (
-              <li key={nanoid()}>
-                <p>{element.name}:</p>
-                <p>{element.number}</p>
-              </li>
-            );
-          })}
-        </ul>
-        <p>{this.state.name}</p>
+        <Filter filter={this.state.filter} searchContact={this.searchContact} />
+        <ContactsList state={this.state} />
       </div>
     );
   }
