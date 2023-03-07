@@ -3,6 +3,7 @@ import { ContactsList } from './ContactsList';
 import { ContactsForm } from './ContactsForm';
 import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
+import { Container, ContactsListSContainer } from './ContactsForm.styled';
 
 export class App extends React.Component {
   state = {
@@ -26,13 +27,29 @@ export class App extends React.Component {
     this.setState({ filter: evt.target.value.toLowerCase() });
   };
 
+  onDeleteContact = contactId => {
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(
+          contact => contact.id !== contactId
+        ),
+      };
+    });
+  };
+
   render() {
     return (
-      <div>
-        <ContactsForm handleSubmit={this.handleSubmit} />
+      <Container>
+        <ContactsListSContainer>
+          <ContactsForm handleSubmit={this.handleSubmit} />
+          <ContactsList
+            state={this.state}
+            onDeleteContact={this.onDeleteContact}
+          />
+        </ContactsListSContainer>
+
         <Filter filter={this.state.filter} searchContact={this.searchContact} />
-        <ContactsList state={this.state} />
-      </div>
+      </Container>
     );
   }
 }

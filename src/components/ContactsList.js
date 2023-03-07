@@ -1,5 +1,6 @@
+import React from 'react';
 import { nanoid } from 'nanoid';
-export const ContactsList = ({ state }) => {
+export const ContactsList = ({ state, onDeleteContact }) => {
   return (
     <>
       <ul>
@@ -12,6 +13,9 @@ export const ContactsList = ({ state }) => {
               <li key={nanoid()}>
                 <p>{element.name}:</p>
                 <p>{element.number}</p>
+                <button onClick={() => onDeleteContact(element.id)}>
+                  delete contact
+                </button>
               </li>
             );
           })}
