@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 export const ContactsList = ({ state, onDeleteContact }) => {
   return (
@@ -23,4 +24,9 @@ export const ContactsList = ({ state, onDeleteContact }) => {
       <p>{state.name}</p>
     </>
   );
+};
+
+ContactsList.propTypes = {
+  state: PropTypes.object.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
 };

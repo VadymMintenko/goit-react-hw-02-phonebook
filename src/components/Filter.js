@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 export const Filter = ({ filter, searchContact }) => {
   return (
     <div>
@@ -13,4 +14,9 @@ export const Filter = ({ filter, searchContact }) => {
       </label>
     </div>
   );
+};
+
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  searchContact: PropTypes.func.isRequired,
 };

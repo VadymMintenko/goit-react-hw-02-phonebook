@@ -35,6 +35,7 @@ export class App extends React.Component {
         ),
       };
     });
+    this.setState({ filter: '' });
   };
 
   render() {

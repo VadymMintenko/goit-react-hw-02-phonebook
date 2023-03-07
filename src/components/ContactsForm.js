@@ -1,5 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { object, string } from 'yup';
 import { FormFild } from './ContactsForm.styled';
 
@@ -51,3 +52,7 @@ export class ContactsForm extends React.Component {
     );
   }
 }
+
+ContactsForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
