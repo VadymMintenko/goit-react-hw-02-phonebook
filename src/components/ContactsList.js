@@ -1,32 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { ListContacts, ListItem, DeleteButton } from './ContactsForm.styled';
 export const ContactsList = ({ state, onDeleteContact }) => {
   return (
     <>
-      <ul>
+      <ListContacts>
         {state.contacts
           .filter(contact =>
             contact.name.toLowerCase().includes(state.filter.toLowerCase())
           )
           .map(element => {
             return (
-              <li key={nanoid()}>
+              <ListItem key={nanoid()}>
                 <p>{element.name}:</p>
                 <p>{element.number}</p>
-                <button onClick={() => onDeleteContact(element.id)}>
+                <DeleteButton onClick={() => onDeleteContact(element.id)}>
                   delete contact
-                </button>
-              </li>
+                </DeleteButton>
+              </ListItem>
             );
           })}
-      </ul>
+      </ListContacts>
       <p>{state.name}</p>
     </>
   );
 };
 
 ContactsList.propTypes = {
-  state: PropTypes.object.isRequired,
+  state: PropTypes.shape({
+    filter: PropTypes.string,
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+      })
+    ),
+  }).isRequired,
+
   onDeleteContact: PropTypes.func.isRequired,
 };
