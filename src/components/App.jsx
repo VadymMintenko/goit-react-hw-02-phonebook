@@ -22,6 +22,12 @@ export class App extends React.Component {
       name: values.name,
       number: values.number,
     };
+    if (
+      this.state.contacts.map(contact => contact.name).includes(newContact.name)
+    ) {
+      alert(`Contact ${newContact.name} already exists.`);
+      return;
+    }
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
